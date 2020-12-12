@@ -1,0 +1,59 @@
+.MessangerBlock
+{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 40%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "image name name time"
+    "image message message count";
+
+
+  &__Image
+  {
+    grid-area: image;
+  }
+
+  &__Image img
+  {
+    border-radius: 50%;
+    height:50px;
+    width:50px;
+  }
+
+  &__Name
+  {
+    grid-area: name;
+    color: blue;
+  }
+
+  &__Time
+  {
+    grid-area: time;
+    color: grey;
+
+  }
+
+  &__Message
+  {
+    grid-area: message;
+    color: grey;
+  }
+
+  &__UnseenMessageCount
+  {
+    grid-area: count;
+    background-color: blue;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+  }
+}
+
+
+.MessangerBlockListItem
+{
+  padding: 20px;
+}

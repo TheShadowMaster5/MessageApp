@@ -8,9 +8,15 @@ class SignupPage extends Component
   {
       super(props);
       this.state = {
-                            email:'',
-                            password:''
-                      }
+                      email:'',
+                      password:'',
+                      errors:{
+                                email:'',
+                                name:'',
+                                password:'',
+                                confirm_password:''
+                             }
+                    }
       this.onSubmit = this.onSubmit.bind(this);
       this.onChange = this.onChange.bind(this);
   }
@@ -18,7 +24,40 @@ class SignupPage extends Component
   onChange(event)
   {
       this.setState({ [event.target.name]: event.target.value })
+      this.form_validation(event)
   }
+
+
+
+  form_validation(onChangeevent)
+  {
+    const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+    const { name, value } = onChangeevent.target;
+    let errors = this.state.errors;
+
+    switch (name)
+    {
+      case 'email':
+        errors.email = value.length === 0 ? 'The field should not be get empty': '';
+        errors.email = validEmailRegex.test(value) ? '' : 'The email is invalid';
+        break;
+      case 'name':
+        errors.name = value.length === 0 ? 'The field should not be get empty' : '';
+        break;
+      case 'password':
+        errors.password = value.length === 0 ? 'The field should not be get empty' : '';
+        break;
+      case 'confirm_password':
+        errors.confirm_password = value.length === 0 ? 'The field should not be get empty' : '';
+        break;
+      default:
+        break;
+    }
+    this.setState({errors, [name]: value});
+  }
+
+
+
 
   onSubmit(event)
   {
@@ -32,35 +71,65 @@ class SignupPage extends Component
       axios.defaults.headers.post['X-CSRF-Token'] = token;
       axios.post( url, body, {withCredentials:true}).then(response => {
                                                                           this.props.history.push("/MessagePage");
-                                                            })
-                                                   .catch(error => {
-                                                                                    this.props.history.push("/");
-                                                                    })
+                                                                      }
+                                                          )
+                                                    .catch(error => {
+                                                                          this.props.history.push("/");
+                                                                     }
+                                                           )
   }
 
   render()
   {
     return(
-            <div>
+            <div className="SignupPage">
                <form onSubmit={this.onSubmit}>
 
-                      <div>
+                      <div className="SignupPage__Email">
                           <label>Email</label>
-                          <input name="email" onChange={this.onChange}/>
+                          <input
+                              className = "form-control email_input"
+                              name="email"
+                              onChange={this.onChange}
+                              type="email"
+                          />
+                          <label className="error">{this.state.errors.email}</label>
                       </div>
 
-                      <div>
+                      <div className="SignupPage__Name">
+                          <label>Name</label>
+                          <input
+                                className = "form-control name_input"
+                                name="name"
+                                onChange={this.onChange}
+                          />
+                          <label className="error">{this.state.errors.name}</label>
+                      </div>
+
+                      <div className="SignupPage__Password">
                           <label>Password</label>
-                          <input name="password" onChange={this.onChange}/>
+                          <input
+                              className = "form-control password_input"
+                              name="password"
+                              onChange={this.onChange}
+                              type="password"
+                          />
+                          <label className="error">{this.state.errors.password}</label>
                       </div>
 
-                      <div>
+                      <div className="SignupPage__ConfirmPassword">
                           <label>Confirm Password</label>
-                          <input name="confirm_password"/>
+                          <input
+                              className = "form-control confirm_password_input"
+                              name="confirm_password"
+                              onChange={this.onChange}
+                              type="password"
+                          />
+                          <label className="error">{this.state.errors.confirm_password}</label>
                       </div>
 
-                      <div>
-                          <button>Sign Up</button>
+                      <div className="SignupPage__SubmitButton">
+                          <button className="btn btn-primary">Sign Up</button>
                       </div>
                 </form>
             </div>

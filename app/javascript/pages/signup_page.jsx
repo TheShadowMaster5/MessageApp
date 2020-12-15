@@ -83,55 +83,63 @@ class SignupPage extends Component
   {
     return(
             <div className="SignupPage">
-               <form onSubmit={this.onSubmit}>
 
-                      <div className="SignupPage__Email">
-                          <label>Email</label>
-                          <input
-                              className = "form-control email_input"
-                              name="email"
-                              onChange={this.onChange}
-                              type="email"
-                          />
-                          <label className="error">{this.state.errors.email}</label>
-                      </div>
+                { /*---- If user already logged in the redirect to the message page ----*/}
+                    {this.props.isUserLoggedIn ? this.props.history.push('/MessagePage'):''}
+                { /*---- If user already logged in the redirect to the message page ----*/}
 
-                      <div className="SignupPage__Name">
-                          <label>Name</label>
-                          <input
-                                className = "form-control name_input"
-                                name="name"
-                                onChange={this.onChange}
-                          />
-                          <label className="error">{this.state.errors.name}</label>
-                      </div>
+                { /*---- Signup Form ----*/}
+                   <form onSubmit={this.onSubmit}>
 
-                      <div className="SignupPage__Password">
-                          <label>Password</label>
-                          <input
-                              className = "form-control password_input"
-                              name="password"
-                              onChange={this.onChange}
-                              type="password"
-                          />
-                          <label className="error">{this.state.errors.password}</label>
-                      </div>
+                          <div className="SignupPage__Email">
+                              <label>Email</label>
+                              <input
+                                  className = "form-control email_input"
+                                  name="email"
+                                  onChange={this.onChange}
+                                  type="email"
+                              />
+                              <label className="error">{this.state.errors.email}</label>
+                          </div>
 
-                      <div className="SignupPage__ConfirmPassword">
-                          <label>Confirm Password</label>
-                          <input
-                              className = "form-control confirm_password_input"
-                              name="confirm_password"
-                              onChange={this.onChange}
-                              type="password"
-                          />
-                          <label className="error">{this.state.errors.confirm_password}</label>
-                      </div>
+                          <div className="SignupPage__Name">
+                              <label>Name</label>
+                              <input
+                                    className = "form-control name_input"
+                                    name="name"
+                                    onChange={this.onChange}
+                              />
+                              <label className="error">{this.state.errors.name}</label>
+                          </div>
 
-                      <div className="SignupPage__SubmitButton">
-                          <button className="btn btn-primary">Sign Up</button>
-                      </div>
-                </form>
+                          <div className="SignupPage__Password">
+                              <label>Password</label>
+                              <input
+                                  className = "form-control password_input"
+                                  name="password"
+                                  onChange={this.onChange}
+                                  type="password"
+                              />
+                              <label className="error">{this.state.errors.password}</label>
+                          </div>
+
+                          <div className="SignupPage__ConfirmPassword">
+                              <label>Confirm Password</label>
+                              <input
+                                  className = "form-control confirm_password_input"
+                                  name="confirm_password"
+                                  onChange={this.onChange}
+                                  type="password"
+                              />
+                              <label className="error">{this.state.errors.confirm_password}</label>
+                          </div>
+
+                          <div className="SignupPage__SubmitButton">
+                              <button className="btn btn-primary">Sign Up</button>
+                          </div>
+                   </form>
+                { /*---- Signup Form ----*/}
+
             </div>
           )
   }

@@ -11,6 +11,15 @@ class Api::V1::FetchDataController < ApplicationController
 
   end
 
+  def get_messages
+    other_person_id  = params[:receiver_user_id];
+    current_user_id  = session[:user_id];
+    all_messages     = Message.where(sender_id: current_user_id, receiver_id: other_person_id).or(Message.where(sender_id: other_person_id, receiver_id: current_user_id));
+    all_messages     = all_messages.order(created_at: :asc)
+    render json: { response_data: all_messages, current_user_id: session[:user_id] }, status:200;
+  end
+
+
   private
 
   def messanger_list(all_messangers_ids)
@@ -62,11 +71,12 @@ class Api::V1::FetchDataController < ApplicationController
   def create_json_data(other_user_id, latest_message, total_unread_message)
       user                 = User.find(other_user_id)
       name                 = user.name
+      user_id              = user.id
       # image_url            = user.image || ''
       message              = latest_message
       message_time         = latest_message.created_at.strftime('%H:%M')
       unread_message_count = total_unread_message
-      json_data            = { "name": name, "message":message.message, "time": message_time, "unseen_message_count": unread_message_count}
+      json_data            = { "name": name, "message":message.message, "time": message_time, "unseen_message_count": unread_message_count, "user_id": user_id}
       return json_data
 
   end

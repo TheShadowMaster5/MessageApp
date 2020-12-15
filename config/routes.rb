@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
         # --------------------------Fetch Messanger --------------------------
             post 'fetch_messanger_list' =>  'fetch_data#get_messanger_list'
+            post 'fetch_messages'       =>  'fetch_data#get_messages'
         # --------------------------------------------------------------------
     end
   end

@@ -35,7 +35,7 @@ class Sidebar extends Component
       return(
               <div className="Sidebar">
                 <ul>
-                    {this.state.loading ? "loading...." : <MessageListItem messangerList={this.state.messangerList}> </MessageListItem>}
+                    {this.state.loading ? "loading...." : <MessageListItem messangerList={this.state.messangerList} fetch_messages={this.props.fetch_messages}> </MessageListItem>}
                 </ul>
               </div>
             )

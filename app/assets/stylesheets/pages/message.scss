@@ -1,0 +1,30 @@
+.MessagePage
+{
+   display: grid;
+   grid-template-columns: 30% 70%;
+   grid-auto-rows: auto;
+   grid-template-areas:
+   "sidebar showmessage";
+
+   &__Sidebar
+   {
+     grid-area: sidebar;
+   }
+
+   &__Showmessage
+   {
+     grid-area: showmessage;
+   }
+
+}
+
+
+.SenderMessage
+{
+  background-color: red;
+}
+
+.ReceiverMessage
+{
+  background-color: green;
+}

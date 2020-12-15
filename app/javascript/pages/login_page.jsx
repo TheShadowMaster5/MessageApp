@@ -154,35 +154,43 @@ class LoginPage extends Component
   {
     return (
       <div className="LoginPage">
-        <form onSubmit={this.onSubmit}>
 
-          <div className="LoginPage__Email">
-            <label>Email</label>
-            <input
-              className = "form-control email_input"
-              name      = "email"
-              onChange  = {this.onChange}
-              type      =  "email"
-            />
-            <label className="error">{this.state.errors.email}</label>
-          </div>
+        { /*---- If user already logged in the redirect to the message page ----*/ }
+            {this.props.isUserLoggedIn ? this.props.history.push('/MessagePage'):''}
+        { /*---- If user already logged in the redirect to the message page ----*/ }
 
-          <div className="LoginPage__Password">
-            <label>Password</label>
-            <input
-              className =  "form-control password_input"
-              name      =  "password"
-              onChange  =  {this.onChange}
-              type      =  "password"
-            />
-            <label className="error">{this.state.errors.password}</label>
-          </div>
+        { /*---- Login Form ----*/ }
+            <form onSubmit={this.onSubmit}>
 
-          <div className="LoginPage__SubmitButton">
-            <button className="btn btn-primary">LogIn</button>
-          </div>
+              <div className="LoginPage__Email">
+                <label>Email</label>
+                <input
+                  className = "form-control email_input"
+                  name      = "email"
+                  onChange  = {this.onChange}
+                  type      =  "email"
+                />
+                <label className="error">{this.state.errors.email}</label>
+              </div>
 
-        </form>
+              <div className="LoginPage__Password">
+                <label>Password</label>
+                <input
+                  className =  "form-control password_input"
+                  name      =  "password"
+                  onChange  =  {this.onChange}
+                  type      =  "password"
+                />
+                <label className="error">{this.state.errors.password}</label>
+              </div>
+
+              <div className="LoginPage__SubmitButton">
+                <button className="btn btn-primary">LogIn</button>
+              </div>
+
+            </form>
+        { /*---- Login Form ----*/ }
+
       </div>
     );
   }

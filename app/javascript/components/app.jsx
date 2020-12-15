@@ -9,43 +9,32 @@ class App extends Component
   {
     super(props);
     this.state = {
-                    isUserLoggedIn: false
+                    isUserLoggedIn: null
                  }
-
-    this.setUserLoginStatus = this.setUserLoginStatus.bind(this);
   }
 
-  componentDidMount()
+  async componentDidMount()
   {
-    this.is_user_loggedIn();
+    var is_user_loggedIn = await this.is_user_loggedIn();
+    this.setState({isUserLoggedIn: is_user_loggedIn});
   }
 
-  setUserLoginStatus(data)
-  {
-    this.setState(state => ({isUserLoggedIn: !state.is_user_loggedIn}))
-  }
 
-  is_user_loggedIn()
+  async is_user_loggedIn()
   {
     const token = document.querySelector('meta[name="csrf-token"]').content;
     const url   = "/api/v1/user/is_signed_in";
     axios.defaults.headers.post['X-CSRF-Token'] = token;
-    axios.post(url, {withCredentials:true}).then(response => {
-                                                                  if(response.data.is_user_logged_in)
-                                                                  {
-                                                                     this.setState({isUserLoggedIn: true})
-                                                                  }
-
-                                                             })
-                                            .catch(error =>  {
-                                                                 alert("error")
-                                                             })
+    var is_user_loggedIn = await axios.post(url, {withCredentials:true});
+    return is_user_loggedIn.data.is_user_logged_in;
   }
 
   render()
   {
     return(
-            <Routes setUserLoginStatus ={this.setUserLoginStatus} isUserLoggedIn = {this.state.isUserLoggedIn}/>
+            <div>
+             <Routes isUserLoggedIn ={this.state.isUserLoggedIn}></Routes>
+            </div>
           )
   }
 }

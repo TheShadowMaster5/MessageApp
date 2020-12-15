@@ -22,7 +22,6 @@ class LoginPage extends Component
   // ============ CONSTRUCTOR END ============
 
 
-
   // ========== ONCHANGE START ===========
       onChange(event)
       {
@@ -33,6 +32,7 @@ class LoginPage extends Component
   // =========== ONCHANGE END =============
 
 
+  // ========== FORM VALIDATION START ===========
       form_validation(onChangeevent)
       {
         const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
@@ -53,6 +53,9 @@ class LoginPage extends Component
         }
         this.setState({errors, [name]: value});
       }
+  // ========== FORM VALIDATION START ===========
+
+
   // ========== SUBMIT FORM START ===========
       onSubmit(event)
       {
@@ -91,18 +94,20 @@ class LoginPage extends Component
               });
           }
         }
-
   // ========== SUBMIT FORM END ===========
 
 
-  validateForm(errors)
-  {
-    let valid = true;
-    Object.values(errors).forEach(val => val.length > 0 && (valid = false));
-    return valid;
-  }
+  // ========== VALIDATE FORM START ===========
+      validateForm(errors)
+      {
+        let valid = true;
+        Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+        return valid;
+      }
+  // ========== VALIDATE FORM END ===========
 
-  // ========== FORM VALIDATION ===========
+
+  // ========== FORM VALIDATION STARTS===========
         login_form_component_is_empty(component_name)
         {
           let errors = this.state.errors;
@@ -123,61 +128,69 @@ class LoginPage extends Component
           this.setState({errors, [name]: value});
 
         }
-  // ========== FORM VALIDATION ===========
+  // ========== FORM VALIDATION END ===========
 
 
+  // ========== GET VALUE STARTS ===========
         get_value(component_name)
         {
             if(component_name === "email")
             {
                 let login_block =  document.getElementsByClassName("LoginPage__Email");
-                let value       =  login_block[0].getElementsByClassName("email_input")[0].textContent;
+                let value       =  login_block[0].getElementsByClassName("email_input")[0].value;
                 return value;
             }
 
             if(component_name === "password")
             {
                   let login_block = document.getElementsByClassName("LoginPage__Password");
-                  let value       = login_block[0].getElementsByClassName("password_input")[0].textContent;
+                  let value       = login_block[0].getElementsByClassName("password_input")[0].value;
                   return value;
             }
         }
-
+  // ==========  GET VALUE ENDS  ===========
 
   render()
   {
     return (
-
       <div className="LoginPage">
-        <form onSubmit={this.onSubmit}>
 
-          <div className="LoginPage__Email">
-            <label>Email</label>
-            <input
-              className = "form-control email_input"
-              name      = "email"
-              onChange  = {this.onChange}
-              type      =  "email"
-            />
-            <label className="error">{this.state.errors.email}</label>
-          </div>
+        { /*---- If user already logged in the redirect to the message page ----*/ }
+            {this.props.isUserLoggedIn ? this.props.history.push('/MessagePage'):''}
+        { /*---- If user already logged in the redirect to the message page ----*/ }
 
-          <div className="LoginPage__Password">
-            <label>Password</label>
-            <input
-              className =  "form-control password_input"
-              name      =  "password"
-              onChange  =  {this.onChange}
-              type      =  "password"
-            />
-            <label className="error">{this.state.errors.password}</label>
-          </div>
+        { /*---- Login Form ----*/ }
+            <form onSubmit={this.onSubmit}>
 
-          <div className="LoginPage__SubmitButton">
-            <button className="btn btn-primary">LogIn</button>
-          </div>
+              <div className="LoginPage__Email">
+                <label>Email</label>
+                <input
+                  className = "form-control email_input"
+                  name      = "email"
+                  onChange  = {this.onChange}
+                  type      =  "email"
+                />
+                <label className="error">{this.state.errors.email}</label>
+              </div>
 
-        </form>
+              <div className="LoginPage__Password">
+                <label>Password</label>
+                <input
+                  className =  "form-control password_input"
+                  name      =  "password"
+                  onChange  =  {this.onChange}
+                  type      =  "password"
+                />
+                <label className="error">{this.state.errors.password}</label>
+              </div>
+
+              <div className="LoginPage__SubmitButton">
+                <button className="btn btn-primary">LogIn</button>
+              </div>
+
+            </form>
+        { /*---- Login Form ----*/ }
+
       </div>
     );
   }

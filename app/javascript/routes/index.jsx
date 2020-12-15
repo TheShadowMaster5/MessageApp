@@ -12,7 +12,6 @@ class Routes extends Component
       super(props)
   }
 
-
   render()
   {
       return(
@@ -22,14 +21,18 @@ class Routes extends Component
                       <Route
                           exact
                           path="/LoginPage"
-                          render={ props =>(<LoginPage {...props} setUserLoginStatus={this.props.setUserLoginStatus} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
+                          render={ props =>(<LoginPage {...props} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
                       </Route>
 
-                      <Route exact path="/SignupPage" component={SignupPage}></Route>
+                      <Route
+                          exact
+                          path="/SignupPage"
+                          render={ props =>(<SignupPage {...props} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
+                      </Route>
 
                       <Route exact
                              path="/MessagePage"
-                             render={ props =>(<MessagePage {...props} setUserLoginStatus={this.props.setUserLoginStatus} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
+                             render={ props =>(<MessagePage {...props} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
                       </Route>
 
                     </Switch>

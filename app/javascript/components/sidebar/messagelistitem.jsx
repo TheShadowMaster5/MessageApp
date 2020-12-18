@@ -16,7 +16,7 @@ class MessageListItem extends Component
     return (
               <div className="MessageItem">
                 { this.props.messangerList.response_data.map((item, index) => (
-                                                                                <li key={item.user_id} data-userid={item.user_id} className="MessangerBlockListItem" onClick={this.props.fetch_messages}>
+                                                                                <li key={item.user_id} data-receiver-user-id={item.user_id} className="MessangerBlockListItem" onClick={this.props.fetch_messages}>
                                                                                   <div className="MessangerBlock">
                                                                                     <div className="MessangerBlock__Image">
                                                                                       <img src= {item.image_url != undefined ? item.image_url : userImage}></img>

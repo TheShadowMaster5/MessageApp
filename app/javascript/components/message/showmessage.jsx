@@ -17,7 +17,7 @@ class ShowMessage extends Component
   {
 
     return(
-            <div>
+            <div id="messages_list">
                 { this.props.messages.data.response_data.map((item, index) => (
                                                                                   this.props.messages.data.current_user_id === item.sender_id ? <SendMessage message={item.message} key={index}></SendMessage> : <ReceiveMessage message={item.message} key={index}></ReceiveMessage>
                                                                               )

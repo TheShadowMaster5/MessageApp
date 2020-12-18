@@ -1,45 +1,45 @@
-.SignupPage
-{
-  width: 400px;
-  border: 1px solid black;
-  padding: 50px;
-  background-color: #fff;
-  border-radius: 5%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-
-  & input
-  {
-      outline: none !important;
-      box-shadow: none !important;
-  }
-
-  & input:focus
-  {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-
-  &__Email,&__Password,&__Name,&__ConfirmPassword
-  {
-    margin-bottom: 20px;
-  }
-
-  &__SubmitButton
-  {
-    text-align: center;
-  }
-
-  & button
-  {
-    width: 150px;
-  }
-
-  & .error
-  {
-    color:red;
-  }
-}
+// .SignupPage
+// {
+//   width: 400px;
+//   border: 1px solid black;
+//   padding: 50px;
+//   background-color: #fff;
+//   border-radius: 5%;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//
+//
+//   & input
+//   {
+//       outline: none !important;
+//       box-shadow: none !important;
+//   }
+//
+//   & input:focus
+//   {
+//     outline: none !important;
+//     box-shadow: none !important;
+//   }
+//
+//   &__Email,&__Password,&__Name,&__ConfirmPassword
+//   {
+//     margin-bottom: 20px;
+//   }
+//
+//   &__SubmitButton
+//   {
+//     text-align: center;
+//   }
+//
+//   & button
+//   {
+//     width: 150px;
+//   }
+//
+//   & .error
+//   {
+//     color:red;
+//   }
+// }

@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_12_11_155058) do
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "message"
+    t.text "room_id"
     t.integer "sender_id"
     t.integer "receiver_id"
     t.boolean "message_seen"

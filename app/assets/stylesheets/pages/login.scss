@@ -6,15 +6,13 @@ body
 
 .LoginPage
 {
-  width: 400px;
-  border: 1px solid black;
-  padding: 50px;
-  background-color: #fff;
-  border-radius: 5%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // width: 400px;
+  // padding: 50px;
+  // border-radius: 5%;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
 
 
   & input
@@ -44,8 +42,4 @@ body
     width: 150px;
   }
 
-  & .error
-  {
-    color:red;
-  }
 }

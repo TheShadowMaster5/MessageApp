@@ -35,7 +35,8 @@ class SendMessage extends Component
                           'user':{
                                     message,
                                     receiver_id: this.props.receiver_user_id,
-                                    sender_id: this.props.sender_user_id
+                                    sender_id: this.props.sender_user_id,
+                                    room_id: 1
                                   }
                        }
           const token = document.querySelector('meta[name="csrf-token"]').content;

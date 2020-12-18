@@ -53,7 +53,9 @@ class Api::V1::UserController < ApplicationController
 
   # ================================================================================================
      def send_message
-       Message.create(message_params)
+       message = Message.new(message_params)
+       message.save!
+       MessageBroadcastJob.perform_later(message);
      end
   # ================================================================================================
 
@@ -81,6 +83,6 @@ class Api::V1::UserController < ApplicationController
 
 
       def message_params
-        params.require(:user).permit(:message, :sender_id, :receiver_id);
+        params.require(:user).permit(:message, :sender_id, :receiver_id, :room_id);
       end
 end

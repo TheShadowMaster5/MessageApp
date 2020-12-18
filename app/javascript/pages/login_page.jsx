@@ -83,7 +83,7 @@ class LoginPage extends Component
             })
               .then((response) => {
                 if (response.ok) {
-                  this.props.setUserLoginStatus(response);
+                  // this.props.setUserLoginStatus(response);
                   this.props.history.push("/MessagePage");
                 } else {
                   alert("The email and password is not correct");
@@ -159,33 +159,42 @@ class LoginPage extends Component
             {this.props.isUserLoggedIn ? this.props.history.push('/MessagePage'):''}
         { /*---- If user already logged in the redirect to the message page ----*/ }
 
+        { /*---- Login Heading ----*/ }
+            <div className="LoginPage__Header">Login</div>
+        { /*---- Login Heading ----*/ }
+
         { /*---- Login Form ----*/ }
-            <form onSubmit={this.onSubmit}>
+            <form className="LoginPage__Form" onSubmit={this.onSubmit}>
 
               <div className="LoginPage__Email">
-                <label>Email</label>
+                {/* <label>Email</label> */}
                 <input
-                  className = "form-control email_input"
+                  className = "email_input"
                   name      = "email"
                   onChange  = {this.onChange}
+                  placeholder = "Email"
                   type      =  "email"
                 />
                 <label className="error">{this.state.errors.email}</label>
               </div>
 
               <div className="LoginPage__Password">
-                <label>Password</label>
+                {/* <label>Password</label>*/}
                 <input
-                  className =  "form-control password_input"
+                  className =  "password_input"
                   name      =  "password"
                   onChange  =  {this.onChange}
+                  placeholder = "Password"
                   type      =  "password"
                 />
                 <label className="error">{this.state.errors.password}</label>
               </div>
 
               <div className="LoginPage__SubmitButton">
-                <button className="btn btn-primary">LogIn</button>
+                <button>LogIn</button>
+                <span className="LoginPage__SignupLinkSection">
+                    New User? <Link to="/SignupPage" className="LoginPage__SignupLink">Create Account</Link>
+                </span>
               </div>
 
             </form>

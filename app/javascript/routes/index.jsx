@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import LoginPage from '../pages/login_page';
-import SignupPage from '../pages/signup_page';
-import MessagePage from '../pages/message_page';
-
+import LoginPage from '../pages/Mobile/login_page';
+import SignupPage from '../pages/Mobile/signup_page';
+import ChatList from '../pages/Mobile/chat_list';
+import OtherUserMessageList from '../pages/Mobile/other_user_message_list';
+import SettingPage from '../pages/Mobile/setting_page';
+import ProfilePage from '../pages/Mobile/profile_page';
+import ShowMessage from '../components/message/showmessage';
 
 class Routes extends Component
 {
@@ -32,9 +35,27 @@ class Routes extends Component
 
                       <Route exact
                              path="/MessagePage"
-                             render={ props =>(<MessagePage {...props} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
+                             render={ props =>(<OtherUserMessageList  {...props} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
                       </Route>
 
+                      <Route exact
+                             path="/ChatPage"
+                             render={ props =>(<ChatList {...props} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
+                      </Route>
+
+                      <Route exact
+                             path="/SettingPage"
+                             render={ props =>(<SettingPage {...props} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
+                      </Route>
+
+                      <Route exact
+                             path="/ProfilePage"
+                             render={ props =>(<ProfilePage {...props} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
+                      </Route>
+                      {/*<Route exact
+                             path="/ShowMessagePage"
+                             render={ props =>(<ShowMessage {...props} isUserLoggedIn={this.props.isUserLoggedIn}/>)}>
+                      </Route>*/}
                     </Switch>
               </Router>
              )

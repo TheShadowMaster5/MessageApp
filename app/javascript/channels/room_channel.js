@@ -12,12 +12,11 @@ consumer.subscriptions.create({channel: "RoomChannel", room_id: 1}, {
 
   received(data)
   {
-    console.log(data);
-
     var node = document.createElement("DIV");
     var textnode = document.createTextNode(data.message.message);
     node.appendChild(textnode);
-    var sender_id = document.getElementById('MessagePage').getAttribute('data-sender-user-id');
+    var sender_id = document.getElementById('MessagePage').getAttribute('data-loggedin-person-user-id');
+
     if(sender_id == data.message.sender_id)
     {
       node.classList.add('SenderMessage');
@@ -28,4 +27,5 @@ consumer.subscriptions.create({channel: "RoomChannel", room_id: 1}, {
     }
     document.getElementById("messages_list").appendChild(node);
   }
+  
 });

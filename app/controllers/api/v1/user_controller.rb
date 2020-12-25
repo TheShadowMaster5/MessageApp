@@ -59,11 +59,22 @@ class Api::V1::UserController < ApplicationController
      end
   # ================================================================================================
 
+
+  def update_profile
+    debugger
+    current_user = User.find(session[:user_id])
+    if current_user.update(update_profile_params)
+      render json: { is_data_updated: true}, status:200
+    else
+      render json: { is_data_updated: false}, status:404
+    end
+  end
+
   private
 
   # ================================================================================================
       def add_user_id_in_session(user)
-        session[:user_id] = user.id
+        session[:user_id] = user.id.to_s
       end
   # ================================================================================================
 
@@ -84,5 +95,9 @@ class Api::V1::UserController < ApplicationController
 
       def message_params
         params.require(:user).permit(:message, :sender_id, :receiver_id, :room_id);
+      end
+
+      def update_profile_params
+        params.require(:user).permit(:name, :email, :mobile_number, :avatar);
       end
 end

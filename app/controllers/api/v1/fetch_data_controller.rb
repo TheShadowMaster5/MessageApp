@@ -12,11 +12,52 @@ class Api::V1::FetchDataController < ApplicationController
   end
 
   def get_messages
-    other_person_id  = params[:receiver_user_id];
-    current_user_id  = session[:user_id];
-    all_messages     = Message.where(sender_id: current_user_id, receiver_id: other_person_id).or(Message.where(sender_id: other_person_id, receiver_id: current_user_id));
-    all_messages     = all_messages.order(created_at: :asc)
-    render json: { response_data: all_messages, current_user_id: session[:user_id] }, status:200;
+    other_person_user_id     =  session[:other_person_user_id ];
+    loggedin_person_user_id  =  session[:user_id];
+    all_messages             =  Message.where(sender_id: loggedin_person_user_id, receiver_id: other_person_user_id).or(Message.where(sender_id: other_person_user_id, receiver_id: loggedin_person_user_id));
+    all_messages             =  all_messages.order(created_at: :asc)
+    render json: { response_data: all_messages, loggedin_person_user_id: session[:user_id], other_person_user_id: session[:other_person_user_id] }, status:200;
+  end
+
+  def get_userlist
+    current_user_id   = session[:user_id];
+    all_users         = User.where.not(id: current_user_id);
+    render json: { response_data: all_users, current_user_id: session[:user_id] }, status:200;
+  end
+
+  def set_other_user_id
+     other_user_id                  =  params[:other_person_user_id]
+     session[:other_person_user_id] =  other_user_id
+     render json: { is_other_user_id_set: session[:other_person_user_id ].present?}, status:200;
+  end
+
+  def get_loggedin_user_id
+    render json: { loggedin_person_user_id: session[:user_id] }, status:200;
+  end
+
+  def get_other_user_id
+    render json: { other_person_user_id: session[:other_person_user_id ] }, status:200;
+  end
+
+  def get_loggedin_user_info
+    loggedin_user_info = User.find(session[:other_person_user_id])
+    image_url = url_for(loggedin_user_info.avatar)
+    respond_to do |format|
+      format.json{ render json: {loggedin_user_info: loggedin_user_info, loggedin_user_image_url: image_url}, status:200; }
+    end
+  end
+
+  def destroy_other_user_id
+     session.delete(:other_user_id)
+  end
+
+  def create_chat_room
+     chat_room_id        = SecureRandom.urlsafe_base64
+     session[:chat_room] = chat_room_id
+  end
+
+  def destroy_chat_room
+    session.delete(:chat_room)
   end
 
 
@@ -74,9 +115,9 @@ class Api::V1::FetchDataController < ApplicationController
       user_id              = user.id
       # image_url            = user.image || ''
       message              = latest_message
-      message_time         = latest_message.created_at.strftime('%H:%M')
+      message_date         = latest_message.created_at.strftime('%d %b')
       unread_message_count = total_unread_message
-      json_data            = { "name": name, "message":message.message, "time": message_time, "unseen_message_count": unread_message_count, "user_id": user_id}
+      json_data            = { "name": name, "message":message.message, "date": message_date, "unseen_message_count": unread_message_count, "user_id": user_id}
       return json_data
 
   end

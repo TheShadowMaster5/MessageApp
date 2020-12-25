@@ -1,3 +1,35 @@
+.MessageItem
+{
+    &__Items
+    {
+      li:last-child
+      {
+        border-bottom: 0.1px solid black;
+      }
+    }
+
+
+    &__SearchInput
+    {
+      padding:30px 25% 60px 25%;
+
+
+      & input
+      {
+          border-radius: 50px;
+          width: 100%;
+          padding: 5px 20px;
+      }
+    }
+
+    &__Footer
+    {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+    }
+}
+
 .MessangerBlock
 {
   width: 100%;
@@ -5,8 +37,8 @@
   grid-template-columns: 20% 40%;
   grid-template-rows: auto;
   grid-template-areas:
-    "image name name time"
-    "image message message count";
+    "image name time_count_block"
+    "image message message";
 
 
   &__Image
@@ -31,13 +63,18 @@
   {
     grid-area: time;
     color: grey;
-
+    text-align: right;
   }
 
   &__Message
   {
     grid-area: message;
     color: grey;
+  }
+
+  &__Time-Count
+  {
+    grid-area: time_count_block;
   }
 
   &__UnseenMessageCount
@@ -56,4 +93,6 @@
 .MessangerBlockListItem
 {
   padding: 20px;
+  list-style-type: none;
+  border-top: 0.1px solid black;
 }

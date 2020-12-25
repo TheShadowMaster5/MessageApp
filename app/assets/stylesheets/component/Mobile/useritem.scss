@@ -1,0 +1,41 @@
+.UserListItemBlock
+{
+      padding-top: 30px;
+}
+
+.UserListPage
+{
+  &__SearchInputBlock
+  {
+    padding: 20px 50px
+  }
+
+  &__SearchInput
+  {
+      width: 100%;
+      border-radius: 10px;
+      padding: 5px;
+      border: 0.7px solid black;
+  }
+
+}
+
+.UserInfoBlock
+{
+  display: grid;
+  grid-template-columns: 20% auto;
+  padding: 10px;
+
+  &__Image
+  {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
+  &__Name
+  {
+    display: grid;
+    align-content: center;
+  }
+}

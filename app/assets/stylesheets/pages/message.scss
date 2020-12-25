@@ -21,10 +21,28 @@
 
 .SenderMessage
 {
-  background-color: red;
+  background-color: #ACBEFD;
+  text-align: right;
+  margin-bottom: 10px;
+  width: 200px;
+  min-height: 50px;
+  border-radius: 50px 10px 10px 50px;
+  margin-left: auto;
+  display: grid;
+  align-items: center;
+  padding: 5px;
 }
 
 .ReceiverMessage
 {
-  background-color: green;
+  background-color: #F8A390;
+  text-align: left;
+  margin-bottom: 10px;
+  width: 200px;
+  min-height: 50px;
+  border-radius: 10px 50px 50px 10px;
+  margin-right: auto;
+  display: grid;
+  align-items: center;
+  padding: 5px;
 }

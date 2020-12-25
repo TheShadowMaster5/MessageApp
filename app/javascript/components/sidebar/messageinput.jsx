@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 
-class SendMessage extends Component
+class MessageInput extends Component
 {
 
   // ===========================================================================
@@ -13,6 +13,7 @@ class SendMessage extends Component
                      }
         this.sendMessage    = this.sendMessage.bind(this);
         this.handleOnChange = this.handleOnChange.bind(this);
+
       }
   // ===========================================================================
 
@@ -34,8 +35,8 @@ class SendMessage extends Component
           const body = {
                           'user':{
                                     message,
-                                    receiver_id: this.props.receiver_user_id,
-                                    sender_id: this.props.sender_user_id,
+                                    receiver_id: this.props.other_person_user_id,
+                                    sender_id: this.props.loggedin_person_user_id,
                                     room_id: 1
                                   }
                        }
@@ -50,7 +51,7 @@ class SendMessage extends Component
       render()
       {
         return(
-                  <div>
+                  <div className="Message__Input-Block">
                     <form onSubmit={this.sendMessage}>
                         <input name="message" onChange={this.handleOnChange}/>
                         <button type="submit">Send</button>
@@ -61,4 +62,4 @@ class SendMessage extends Component
   // ===========================================================================
 }
 
-export default SendMessage;
+export default MessageInput;

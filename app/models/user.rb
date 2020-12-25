@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
   has_many :send_messages, foreign_key: "sender_id", class_name: "Message"
   has_many :receive_messages, foreign_key: "receiver_id", class_name: "Message"
-
+  has_one_attached :avatar
 
   def self.is_authenticated(email,password)
 
@@ -15,5 +15,6 @@ class User < ApplicationRecord
     end
 
   end
+
 
 end

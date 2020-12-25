@@ -29,6 +29,7 @@ class App extends Component
     return is_user_loggedIn.data.is_user_logged_in;
   }
 
+
   render()
   {
     return(
@@ -37,6 +38,7 @@ class App extends Component
             </div>
           )
   }
+  
 }
 
 export default App;

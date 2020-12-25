@@ -1,0 +1,34 @@
+.Footer
+{
+  background-color: #F2B174;
+  padding: 10px;
+  color: #000000;
+
+  &__List
+  {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+
+    & a
+    {
+      color: #000000;
+      text-decoration: none;
+    }
+
+    & a:hover
+    {
+      color: #000000;
+      text-decoration: none;
+    }
+  }
+
+  &__ListItem
+  {
+    text-align: center;
+    border: none;
+    list-style-type: none;
+  }
+}

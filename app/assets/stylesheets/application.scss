@@ -1,8 +1,14 @@
 @import './pages/mobile/login';
 @import './pages/mobile/signup';
+@import './pages/mobile/userlist';
+@import './pages/mobile/other_user_message_list';
 @import './component/mobile/form';
+@import './component/mobile/useritem';
+@import './component/mobile/messageinput';
+@import './component/mobile/messagelistitem';
+@import './component/mobile/footer';
+@import './component/mobile/header';
 
-@import './component/messagelistitem';
 @import './component/sidebar';
 @import './pages/login';
 @import './pages/signup';

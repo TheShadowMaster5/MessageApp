@@ -1,0 +1,19 @@
+#UserListPage
+{
+  background-image: url('/assets/messagebg.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+
+    & li
+    {
+      list-style-type: none;
+      border-top: 0.1px solid black;
+    }
+
+    & li:last-child
+    {
+      border-bottom: 0.1px solid black;
+    }
+
+}

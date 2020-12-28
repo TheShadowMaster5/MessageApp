@@ -16,28 +16,26 @@ class Header extends Component
 
   async get_user_info()
   {
-      // const url     = "/api/v1/get_loggedin_user_info";
-      // const token   = document.querySelector('meta[name="csrf-token"]').content;
-      // const body    = {};
-      // axios.defaults.headers.post['X-CSRF-Token'] = token;
-      // axios.defaults.headers.post['Content-Type'] = 'application/json';
-      // var user_data = await axios.post(url, body, {withCredentials: true});
-      // var user_data = await axios.post(url, body, { headers: {"content-type": "application/json"}});
-      // this.setState({user_image: user_data.data.loggedin_user_image_url, user_name: user_data.data.loggedin_user_info.name});
+      const url     = "/api/v1/get_other_user_info";
+      const token   = document.querySelector('meta[name="csrf-token"]').content;
+      const body    = {};
+      axios.defaults.headers.post['X-CSRF-Token'] = token;
+      var user_data = await axios.post(url, body, {withCredentials: true});
+      this.setState({user_image: user_data.data.other_user_image_url, user_name: user_data.data.other_user_info.name});
 
 
-      const token = document.querySelector('meta[name="csrf-token"]').content;
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-                    "X-CSRF-Token": token,
-                    'Content-Type': 'application/json'
-                },
-        body: JSON.stringify({ title: 'React POST Request Example' })
-    };
-    fetch('/api/v1/get_loggedin_user_info', requestOptions)
-        .then(response => response.json())
-        .then(user_data => this.setState({user_image: user_data.loggedin_user_image_url, user_name: user_data.loggedin_user_info.name}));
+    //   const token = document.querySelector('meta[name="csrf-token"]').content;
+    //   const requestOptions = {
+    //     method: 'POST',
+    //     headers: {
+    //                 "X-CSRF-Token": token,
+    //                 'Content-Type': 'application/json'
+    //             },
+    //     body: JSON.stringify({ title: 'React POST Request Example' })
+    // };
+    // fetch('/api/v1/get_other_user_info', requestOptions)
+    //     .then(response => response.json())
+    //     .then(user_data => this.setState({user_image: user_data.other_user_image_url, user_name: user_data.other_user_info.name}));
   }
 
   componentDidMount()

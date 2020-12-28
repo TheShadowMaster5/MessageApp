@@ -36,11 +36,10 @@ class OtherUserMessageList extends Component
   }
 
 
-  list_item_onclick_operations(event)
+  async list_item_onclick_operations(event)
   {
-      var is_id_set             =  this.set_other_user_id(event);
-      var is_chat_room_created  =  this.create_chat_room();
-
+      var is_id_set             =  await this.set_other_user_id(event);
+      var is_chat_room_created  =  await this.create_chat_room();
 
       if (is_id_set && is_chat_room_created)
       {

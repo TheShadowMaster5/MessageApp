@@ -24,7 +24,7 @@ Rails.application.routes.draw do
             post 'create_chat_room'       =>  'fetch_data#create_chat_room'
             post 'destroy_chat_room'      =>  'fetch_data#destroy_chat_room'
             post 'get_other_user_id'      =>  'fetch_data#get_other_user_id'
-            post 'get_loggedin_user_info'      =>  'fetch_data#get_loggedin_user_info'
+            post 'get_other_user_info'    =>  'fetch_data#get_other_user_info'
         # --------------------------------------------------------------------
     end
   end

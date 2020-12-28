@@ -34,8 +34,8 @@ class Api::V1::UserController < ApplicationController
 
   # ================================================================================================
       def logout
-          remove_user_id_from_session()
-          render json: {"is_user_logged_out": true}, status:200
+          reset_session
+          render json: {"is_user_logged_out": !session[:user_id].present?}, status:200
       end
   # ================================================================================================
 
@@ -61,8 +61,7 @@ class Api::V1::UserController < ApplicationController
 
 
   def update_profile
-    debugger
-    current_user = User.find(session[:user_id])
+    current_user = User.find(session[:user_id].to_i)
     if current_user.update(update_profile_params)
       render json: { is_data_updated: true}, status:200
     else
@@ -75,13 +74,6 @@ class Api::V1::UserController < ApplicationController
   # ================================================================================================
       def add_user_id_in_session(user)
         session[:user_id] = user.id.to_s
-      end
-  # ================================================================================================
-
-
-  # ================================================================================================
-      def remove_user_id_from_session()
-        session.delete(:user_id)
       end
   # ================================================================================================
 

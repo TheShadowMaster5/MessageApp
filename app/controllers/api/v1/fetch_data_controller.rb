@@ -2,7 +2,7 @@ class Api::V1::FetchDataController < ApplicationController
 
 
   def get_messanger_list
-    current_user       =  User.find(session[:user_id])
+    current_user       =  User.find(session[:user_id].to_i)
     receiver_ids       =  current_user.receive_messages.pluck(:sender_id)
     sender_ids         =  current_user.send_messages.pluck(:receiver_id)
     all_messangers_ids =  (receiver_ids + sender_ids ).uniq
@@ -12,7 +12,7 @@ class Api::V1::FetchDataController < ApplicationController
   end
 
   def get_messages
-    other_person_user_id     =  session[:other_person_user_id ];
+    other_person_user_id     =  session[:other_person_user_id];
     loggedin_person_user_id  =  session[:user_id];
     all_messages             =  Message.where(sender_id: loggedin_person_user_id, receiver_id: other_person_user_id).or(Message.where(sender_id: other_person_user_id, receiver_id: loggedin_person_user_id));
     all_messages             =  all_messages.order(created_at: :asc)
@@ -28,7 +28,7 @@ class Api::V1::FetchDataController < ApplicationController
   def set_other_user_id
      other_user_id                  =  params[:other_person_user_id]
      session[:other_person_user_id] =  other_user_id
-     render json: { is_other_user_id_set: session[:other_person_user_id ].present?}, status:200;
+     render json: { is_other_user_id_set: session[:other_person_user_id].present?, status:200};
   end
 
   def get_loggedin_user_id
@@ -36,15 +36,13 @@ class Api::V1::FetchDataController < ApplicationController
   end
 
   def get_other_user_id
-    render json: { other_person_user_id: session[:other_person_user_id ] }, status:200;
+    render json: { other_person_user_id: session[:other_person_user_id] }, status:200;
   end
 
-  def get_loggedin_user_info
-    loggedin_user_info = User.find(session[:other_person_user_id])
-    image_url = url_for(loggedin_user_info.avatar)
-    respond_to do |format|
-      format.json{ render json: {loggedin_user_info: loggedin_user_info, loggedin_user_image_url: image_url}, status:200; }
-    end
+  def get_other_user_info
+    other_user_info = User.find(session[:other_person_user_id])
+    image_url = url_for(other_user_info.avatar)
+    render json: {other_user_info: other_user_info, other_user_image_url: image_url}, status:200;
   end
 
   def destroy_other_user_id

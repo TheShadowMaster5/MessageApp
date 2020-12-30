@@ -21,27 +21,14 @@ class Header extends Component
       const body    = {};
       axios.defaults.headers.post['X-CSRF-Token'] = token;
       var user_data = await axios.post(url, body, {withCredentials: true});
-      this.setState({user_image: user_data.data.other_user_image_url, user_name: user_data.data.other_user_info.name});
-
-
-    //   const token = document.querySelector('meta[name="csrf-token"]').content;
-    //   const requestOptions = {
-    //     method: 'POST',
-    //     headers: {
-    //                 "X-CSRF-Token": token,
-    //                 'Content-Type': 'application/json'
-    //             },
-    //     body: JSON.stringify({ title: 'React POST Request Example' })
-    // };
-    // fetch('/api/v1/get_other_user_info', requestOptions)
-    //     .then(response => response.json())
-    //     .then(user_data => this.setState({user_image: user_data.other_user_image_url, user_name: user_data.other_user_info.name}));
+      this.setState({user_image: user_data.data.other_user_image_url || UserImage, user_name: user_data.data.other_user_info.name});
   }
 
   componentDidMount()
   {
     this.get_user_info();
   }
+
   render()
   {
     return(

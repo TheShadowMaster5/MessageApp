@@ -34,11 +34,8 @@ class MessageInput extends Component
           const {message} = this.state;
           const body = {
                           'user':{
-                                    message,
-                                    receiver_id: this.props.other_person_user_id,
-                                    sender_id: this.props.loggedin_person_user_id,
-                                    room_id: 1
-                                  }
+                                    message
+                                 }
                        }
           const token = document.querySelector('meta[name="csrf-token"]').content;
           axios.defaults.headers.post['X-CSRF-Token'] = token;

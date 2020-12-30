@@ -1,0 +1,32 @@
+.SettingPage
+{
+  min-height: 100vh;
+  position: relative;
+  background-image: url('/assets/back1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &__Footer
+  {
+    position:absolute;
+    bottom: 0px;
+    width: 100%;
+  }
+
+  &__Logout
+  {
+    width: 200px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: #F18240;
+    border: 1px solid #F18240;
+    color: #000000;
+    outline: none !important;
+    cursor: pointer;
+
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+  }
+}

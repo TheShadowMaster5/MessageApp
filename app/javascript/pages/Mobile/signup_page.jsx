@@ -9,8 +9,9 @@ class SignupPage extends Component
   {
       super(props);
       this.state = {
+                      name:'',
                       email:'',
-                     password:'',
+                      password:'',
                       errors:{
                                 email:'',
                                 name:'',
@@ -70,8 +71,11 @@ class SignupPage extends Component
       const url = "/api/v1/user/signup";
       const token = document.querySelector('meta[name="csrf-token"]').content;
       const body = {
-                      email: this.state.email,
-                      password: this.state.password
+                      user:{
+                              email: this.state.email,
+                              name: this.state.name,
+                              password: this.state.password
+                            }
                    }
       if(this.validateForm(this.state.errors))
       {
@@ -167,11 +171,12 @@ class SignupPage extends Component
                 { /*---- If user already logged in the redirect to the message page ----*/}
 
                 { /*---- Signup Form ----*/}
-                    <div className="SignupPage__Header">Create Account</div>
-                { /*---- Signup Form ----*/}
-
-                { /*---- Signup Form ----*/}
                    <form onSubmit={this.onSubmit} className="SignupPage__Form">
+
+                         { /*---- Signup Form ----*/}
+                             <div className="SignupPage__Header">Create Account</div>
+                         { /*---- Signup Form ----*/}
+
 
                           <div className="SignupPage__Email">
                               { /*<label>Email</label>*/}

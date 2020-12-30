@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Footer from '../../components/Mobile/footer';
+import DefaultUserImage from '../../../assets/images/userdefault.jpg';
 import axios from 'axios';
 
 class ProfilePage extends Component
@@ -10,18 +12,51 @@ class ProfilePage extends Component
                         name: '',
                         email: '',
                         mobile_number:'',
-                        avatar: ''
+                        avatar: '',
+                        errors: {
+                                    name: '',
+                                    email: '',
+                                    mobile_number:''
+                                }
 
                      }
         this.onChange = this.onChange.bind(this);
+        this.openFileMenu = this.openFileMenu.bind(this);
         this.submitform = this.submitform.bind(this);
     }
+
+    async get_profile_data()
+    {
+        const url = "/api/v1/get_profile_data";
+        var profile_data = await axios.get(url);
+        this.setState({
+                        name: profile_data.data.name,
+                        email: profile_data.data.email,
+                        //--- We use or operator because the mobile number is not mandatory field during signup
+                        //--- So the react gives error on assigning null value to the state -----------
+                        mobile_number: profile_data.data.mobile_number||'',
+                        // ----------------------------------------------------------------------------
+                        avatar: profile_data.data.image_url
+                      })
+    }
+
+    openFileMenu()
+    {
+        document.getElementsByClassName('ProfileForm__FileInput')[0].click();
+    }
+
+    componentDidMount()
+    {
+        this.get_profile_data();
+    }
+
 
     onChange(event)
     {
       if(event.target.name==="avatar")
       {
-          this.setState({ [event.target.name]: event.target.files[0]})
+          let avatar_image = URL.createObjectURL(event.target.files[0]);
+          this.setState({ [event.target.name]: event.target.files[0], avatar: avatar_image})
       }
       else
       {
@@ -59,34 +94,63 @@ class ProfilePage extends Component
 
     render()
     {
+
       return(
-              <div>
+              <div className="ProfilePage">
                 <form className="ProfileForm" onSubmit={this.submitform} encType="multipart/form-data">
 
-                    <div className="ProfileForm__Image">
-                      <input type="file" name="avatar" onChange={this.onChange}/>
+                    <div className="ProfileForm__ImageBlock" onClick={this.openFileMenu}>
+
+                      <img className="ProfileForm__Image" src={this.state.avatar!==''?this.state.avatar: DefaultUserImage}/>
+                      <div className="ProfileForm__Edit"></div>
+
+                      <input
+                                className="ProfileForm__FileInput"
+                                type="file"
+                                name="avatar"
+                                onChange={this.onChange}
+                      />
                     </div>
 
                     <div className="ProfileForm__Name">
-                      <label>Name</label>
-                      <input name="name" onChange={this.onChange}/>
+                      <input
+                            name="name"
+                            onChange={this.onChange}
+                            placeholder="Name"
+                            value = {this.state.name !==''? this.state.name: ''}
+                      />
+                      <label className="error">{this.state.errors.password}</label>
                     </div>
 
                     <div className="ProfileForm__Email">
-                      <label>Email</label>
-                      <input name="email" onChange={this.onChange}/>
+                      <input
+                          name="email"
+                          onChange={this.onChange}
+                          placeholder="Email"
+                          value = {this.state.email !==''? this.state.email: ''}
+                      />
+                      <label className="error">{this.state.errors.password}</label>
                     </div>
 
                     <div className="ProfileForm__Contact">
-                      <label>Contact</label>
-                      <input name="mobile_number" onChange={this.onChange}/>
+                      <input
+                          name="mobile_number"
+                          onChange={this.onChange}
+                          placeholder="Contact"
+                          value = {this.state.mobile_number !==''? this.state.mobile_number: ''}
+                      />
+                      <label className="error">{this.state.errors.password}</label>
                     </div>
 
 
-                    <div>
-                      <button className="btn btn-primary">Submit</button>
+                    <div className="ProfileForm__SubmitButtonBlock">
+                      <button className="ProfileForm__SubmitButton">Submit</button>
                     </div>
                 </form>
+
+                <div className="ProfilePage__Footer">
+                    <Footer></Footer>
+                </div>
               </div>
             )
     }

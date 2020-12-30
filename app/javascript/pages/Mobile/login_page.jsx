@@ -159,12 +159,14 @@ class LoginPage extends Component
             {this.props.isUserLoggedIn ? this.props.history.push('/MessagePage'):''}
         { /*---- If user already logged in the redirect to the message page ----*/ }
 
-        { /*---- Login Heading ----*/ }
-            <div className="LoginPage__Header">Login</div>
-        { /*---- Login Heading ----*/ }
 
         { /*---- Login Form ----*/ }
+
             <form className="LoginPage__Form" onSubmit={this.onSubmit}>
+
+              { /*---- Login Heading ----*/ }
+                  <div className="LoginPage__Header">Login</div>
+              { /*---- Login Heading ----*/ }
 
               <div className="LoginPage__Email">
                 {/* <label>Email</label> */}

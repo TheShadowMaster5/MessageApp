@@ -18,9 +18,8 @@ class Api::V1::UserController < ApplicationController
 
   # ================================================================================================
       def signup
-        email = params[:user][:email]
-        password = params[:user][:password]
-        user = User.create(email: email, password: password)
+        require "bcrypt"
+        user = User.create(user_params)
 
         if user.present?
           add_user_id_in_session(user)
@@ -84,12 +83,25 @@ class Api::V1::UserController < ApplicationController
       end
   # ================================================================================================
 
+  # ================================================================================================
+      def user_params
+        params[:user]['password'] = BCrypt::Password.create(params[:user]['password']);
+        params.require(:user).permit(:name, :email, :password, :room_id);
+      end
+  # ================================================================================================
 
+  # ================================================================================================
       def message_params
+        params[:user][:sender_id]   = session[:user_id]
+        params[:user][:receiver_id] = session[:other_person_user_id]
+        params[:user][:room_id]     = session[:chat_room]
         params.require(:user).permit(:message, :sender_id, :receiver_id, :room_id);
       end
+  # ================================================================================================
 
+  # ================================================================================================
       def update_profile_params
         params.require(:user).permit(:name, :email, :mobile_number, :avatar);
       end
+  # ================================================================================================
 end

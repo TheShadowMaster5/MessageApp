@@ -1,5 +1,6 @@
 .MessageItem
 {
+
     &__Items
     {
       li:last-child
@@ -27,6 +28,15 @@
       position: absolute;
       bottom: 0px;
       width: 100%;
+    }
+
+    &__NoMessage
+    {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
     }
 }
 

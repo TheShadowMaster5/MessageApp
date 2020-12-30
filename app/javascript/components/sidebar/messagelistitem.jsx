@@ -14,44 +14,59 @@ class MessageListItem extends Component
 
   render()
   {
-
-    return (
+    if(this.props.messengerList.response_data === null)
+    {
+      return(
               <div className="MessageItem">
+                    <div className="MessageItem__NoMessage">
+                        You don't have any message.Please go to contact page for creating any message.
+                    </div>
+                    <div className="MessageItem__Footer">
+                       <Footer/>
+                    </div>
+              </div>
+            )
+    }
+    else
+    {
+      return (
+                <div className="MessageItem">
 
-                <div className="MessageItem__SearchInput">
-                  <input></input>
-                </div>
+                  <div className="MessageItem__SearchInput">
+                    <input></input>
+                  </div>
 
-                <div className="MessageItem__Items">
-                { this.props.messengerList.response_data.map((item, index) => (
-                                                                                <li key={item.user_id} data-receiver-user-id={item.user_id} className="MessageItem__MessangerBlock MessangerBlockListItem" onClick={this.props.list_item_onclick_operations}>
-                                                                                  <div className="MessangerBlock">
+                  <div className="MessageItem__Items">
+                  { this.props.messengerList.response_data.map((item, index) => (
+                                                                                  <li key={item.user_id} data-receiver-user-id={item.user_id} className="MessageItem__MessangerBlock MessangerBlockListItem" onClick={this.props.list_item_onclick_operations}>
+                                                                                    <div className="MessangerBlock">
 
-                                                                                    <div className="MessangerBlock__Image">
-                                                                                      <img src= {item.image_url != undefined ? item.image_url : userImage}></img>
+                                                                                      <div className="MessangerBlock__Image">
+                                                                                        <img src= {item.image_url != undefined ? item.image_url : userImage}></img>
+                                                                                      </div>
+
+                                                                                      <div className="MessangerBlock__Name">{item.name}</div>
+
+                                                                                      <div className="MessangerBlock__Time-Count">
+                                                                                        <div className="MessangerBlock__Time">{item.date}</div>
+                                                                                        {item.unseen_message_count==0 ? "" : <div className="MessangerBlock__UnseenMessageCount">{item.unseen_message_count}</div>}
+                                                                                      </div>
+
+                                                                                      <div className="MessangerBlock__Message">{item.message}</div>
+
                                                                                     </div>
+                                                                                  </li>
+                                                                                )
+                                                                )
+                   }
+                   </div>
 
-                                                                                    <div className="MessangerBlock__Name">{item.name}</div>
-
-                                                                                    <div className="MessangerBlock__Time-Count">
-                                                                                      <div className="MessangerBlock__Time">{item.date}</div>
-                                                                                      {item.unseen_message_count==0 ? "" : <div className="MessangerBlock__UnseenMessageCount">{item.unseen_message_count}</div>}
-                                                                                    </div>
-
-                                                                                    <div className="MessangerBlock__Message">{item.message}</div>
-
-                                                                                  </div>
-                                                                                </li>
-                                                                              )
-                                                              )
-                 }
+                   <div className="MessageItem__Footer">
+                      <Footer/>
+                   </div>
                  </div>
-
-                 <div className="MessageItem__Footer">
-                    <Footer/>
-                 </div>
-               </div>
-           );
+             );
+    }
   }
 
 }

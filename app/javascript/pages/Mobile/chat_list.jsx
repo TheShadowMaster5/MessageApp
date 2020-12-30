@@ -15,8 +15,29 @@ class ChatList extends Component
       super(props);
       this.state = {
                       messages: '',
-                      other_person_user_id:''
+                      loggedin_person_user_id:'',
+                      chat_room_id:''
                     };
+  }
+
+  async get_logged_in_user_id()
+  {
+    const url = "/api/v1/get_loggedin_user_id";
+    const body = {};
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+    axios.defaults.headers.post['X-CSRF-Token'] = token;
+    var loggedin_person_user_id = await axios.get(url, body, {withCredentials: true});
+    this.setState({ loggedin_person_user_id: loggedin_person_user_id.data.loggedin_person_user_id});
+  }
+
+  async get_chat_room_id()
+  {
+    const url = "/api/v1/get_chat_room_id";
+    const body = {};
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+    axios.defaults.headers.post['X-CSRF-Token'] = token;
+    var chat_room_id = await axios.get(url, body, {withCredentials: true});
+    this.setState({ chat_room_id : chat_room_id.data.chat_room_id });
   }
 
   async fetch_messages()
@@ -26,35 +47,28 @@ class ChatList extends Component
      const token = document.querySelector('meta[name="csrf-token"]').content;
      axios.defaults.headers.post['X-CSRF-Token'] = token;
      var messages = await axios.post(url, body, {withCredentials: true});
-     await this.setState({ messages: messages});
+     this.setState({ messages: messages});
   }
 
 
   async componentDidMount()
   {
+     await this.get_logged_in_user_id();
+     await this.get_chat_room_id();
      await this.fetch_messages();
   }
 
   render()
   {
-    if(this.state.messages != "" )
-    {
       return(
-              <div id="MessagePage" data-loggedin-person-user-id={this.state.messages.data.loggedin_person_user_id}>
+              <div id="MessagePage" data-loggedin_person_user_id={this.state.loggedin_person_user_id} data-chat_room_id={this.state.chat_room_id}>
                   <Header></Header>
                   <div className="MessagePage__Showmessage">
-                      <ShowMessage messages={this.state.messages}></ShowMessage>
+                      { this.state.messages !=="" ? <ShowMessage messages={this.state.messages}></ShowMessage> : "Loading....."}
                   </div>
               </div>
             )
-    }
-    else
-    {
-      return(
-                <div>NO message</div>
-            )
-    }
-  }
+   }
 }
 
 export default ChatList;

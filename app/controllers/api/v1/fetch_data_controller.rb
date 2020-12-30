@@ -3,8 +3,8 @@ class Api::V1::FetchDataController < ApplicationController
 
   def get_messanger_list
     current_user       =  User.find(session[:user_id].to_i)
-    receiver_ids       =  current_user.receive_messages.pluck(:sender_id)
-    sender_ids         =  current_user.send_messages.pluck(:receiver_id)
+    receiver_ids       =  current_user.send_messages.pluck(:receiver_id)
+    sender_ids         =  current_user.receive_messages.pluck(:sender_id)
     all_messangers_ids =  (receiver_ids + sender_ids ).uniq
     messanger_list     =   all_messangers_ids.present? ? messanger_list(all_messangers_ids): nil;
     render json: { response_data: messanger_list }, status:200;
@@ -41,7 +41,7 @@ class Api::V1::FetchDataController < ApplicationController
 
   def get_other_user_info
     other_user_info = User.find(session[:other_person_user_id])
-    image_url = url_for(other_user_info.avatar)
+    image_url = other_user_info.avatar.attachment.present? ? url_for(other_user_info.avatar) : ''
     render json: {other_user_info: other_user_info, other_user_image_url: image_url}, status:200;
   end
 
@@ -50,14 +50,30 @@ class Api::V1::FetchDataController < ApplicationController
   end
 
   def create_chat_room
-     chat_room_id        = SecureRandom.urlsafe_base64
-     session[:chat_room] = chat_room_id
+    sender_id              = session[:user_id]
+    receiver_id            = session[:other_person_user_id]
+    chat_room_id           = Message.where(sender_id: sender_id, receiver_id: receiver_id).first&.room_id
+    chat_room_id           = chat_room_id.present? ? chat_room_id : SecureRandom.urlsafe_base64;
+    session[:chat_room_id] = chat_room_id
+    render json: {is_chat_room_present: session[:chat_room_id].present?}
   end
+
+  def get_chat_room_id
+    sender_id         = session[:user_id]
+    receiver_id       = session[:other_person_user_id]
+    chat_room_id      = session[:chat_room_id]
+    render json: {chat_room_id: chat_room_id}
+  end
+
 
   def destroy_chat_room
     session.delete(:chat_room)
   end
 
+  def get_profile_data
+    profile_data = User.find(session[:user_id])
+    render json: {name: profile_data.name, email: profile_data.email, mobile_number: profile_data.mobile_number, image_url: profile_data.avatar.attachment.present? ? url_for(profile_data.avatar): ''}
+  end
 
   private
 
@@ -88,6 +104,7 @@ class Api::V1::FetchDataController < ApplicationController
 
   def latest_message(send_message, receive_message)
 
+
     if send_message.present? && receive_message.present?
       if send_message.created_at > receive_message.created_at
         return send_message
@@ -108,6 +125,7 @@ class Api::V1::FetchDataController < ApplicationController
   end
 
   def create_json_data(other_user_id, latest_message, total_unread_message)
+  
       user                 = User.find(other_user_id)
       name                 = user.name
       user_id              = user.id

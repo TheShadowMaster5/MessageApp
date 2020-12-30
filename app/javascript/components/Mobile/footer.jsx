@@ -17,10 +17,13 @@ class Footer extends Component
               <Link to="/ProfilePage">Profile</Link>
             </li>
             <li className="Footer__ListItem">
-              <Link to="#">Chat</Link>
+              <Link to="/MessagePage">Chat</Link>
             </li>
             <li className="Footer__ListItem">
               <Link to="/SettingPage">Setting</Link>
+            </li>
+            <li className="Footer__ListItem">
+              <Link to="/ContactPage">Contact</Link>
             </li>
           </ul>
       </div>

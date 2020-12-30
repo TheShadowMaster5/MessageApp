@@ -5,16 +5,21 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   def self.is_authenticated(email,password)
-
-    user = User.find_by_email(email)
-
-    if ( user.present? )
-      return user.password === password
-    else
-      return false;
-    end
-
+      require "bcrypt"
+      begin
+        user = User.find_by(email: email)
+        if user.present? && self.password_match(user,password)
+          return true
+        else
+          return false
+        end
+      rescue
+        return false
+      end
   end
 
+  def self.password_match(user,password)
+    return BCrypt::Password.new(user.password) == password
+  end
 
 end

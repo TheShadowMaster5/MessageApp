@@ -1,0 +1,55 @@
+
+.ProfilePage
+{
+  min-height: 100vh;
+  position: relative;
+  background-image: url('/assets/back1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+  &__Footer
+  {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+  }
+}
+
+.ProfileForm
+{
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+
+  &__FileInput
+  {
+      display: none;
+  }
+
+  &__ImageBlock
+  {
+      display: grid;
+      justify-content: center;
+      margin-bottom: 20px;
+  }
+
+  &__Image
+  {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ffffff;
+  }
+
+
+  &__Name, &__Email, &__Contact
+  {
+    margin-bottom: 4px;
+  }
+
+  &__SubmitButtonBlock
+  {
+    text-align: center;
+  }
+}

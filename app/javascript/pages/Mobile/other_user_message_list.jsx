@@ -77,7 +77,7 @@ class OtherUserMessageList extends Component
 
   async create_chat_room()
   {
-    const url = "/api/v1/fetch_messanger_list";
+    const url = "/api/v1/create_chat_room";
     const body =  {other_user_id: ""};
     const token = document.querySelector('meta[name="csrf-token"]').content;
     axios.defaults.headers.post['X-CSRF-Token'] = token;

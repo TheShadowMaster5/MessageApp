@@ -1,7 +1,7 @@
 .SignupPage
 {
 
-  background-image: url('/assets/signupbg.jpeg');
+  background-image: url('/assets/back1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -11,19 +11,16 @@
   &__Header
   {
       font-size: 36px;
-      position: absolute;
-      left:50%;
-      top:10%;
-      transform: translate(-50%, -10%);
       width: 240px;
+      margin-bottom: 25px;
   }
 
   &__Form
   {
     position: absolute;
     left:50%;
-    top: 80%;
-    transform: translate(-50%, -80%);
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
   &__Email,&__Name,&__Password,&__ConfirmPassword
@@ -50,6 +47,6 @@
 
   &__LoginLinkSection
   {
-    font-size: 10px;
+    font-size: 12px;
   }
 }

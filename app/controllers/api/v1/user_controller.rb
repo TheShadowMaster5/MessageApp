@@ -1,5 +1,7 @@
 class Api::V1::UserController < ApplicationController
 
+  skip_before_action :verify_authenticity_token
+  
   # ================================================================================================
       def login
         email = params[:user][:email]

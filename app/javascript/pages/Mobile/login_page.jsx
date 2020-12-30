@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 class LoginPage extends Component
 {
@@ -69,30 +70,30 @@ class LoginPage extends Component
             // ================== VARIABLES STARTS ==================
                 const url = "/api/v1/user/login";
                 const { email, password } = this.state;
-                const body = {email, password};
+                const body = {
+                                'user':
+                                        {email, password}
+                              }
                 const token = document.querySelector('meta[name="csrf-token"]').content;
             // ==================  VARIABLES ENDS ==================
 
-            fetch(url, {
-              method: "POST",
-              headers: {
-                "X-CSRF-Token": token,
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(body)
-            })
-              .then((response) => {
-                if (response.ok) {
-                  // this.props.setUserLoginStatus(response);
-                  this.props.history.push("/MessagePage");
-                } else {
-                  alert("The email and password is not correct");
-                }
-              })
-              .catch((error) => {
-                console.log(error.message);
-              });
-          }
+                axios.defaults.headers.post['X-CSRF-Token'] = token;
+                axios.post( url, body, {withCredentials:true}).then(response => {
+                                                                                    if (response.status ===200)
+                                                                                    {
+                                                                                      this.props.history.push("/MessagePage");
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                      alert("The email and password is not correct");
+                                                                                    }
+                                                                                }
+                                                                    )
+                                                              .catch(error => {
+                                                                                    this.props.history.push("/SignupPage");
+                                                                               }
+                                                                     )
+            }
         }
   // ========== SUBMIT FORM END ===========
 
